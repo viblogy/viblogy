@@ -15,7 +15,7 @@ permissions:
 
 concurrency:
   group: pages
-  skip-canceling: false
+  cancel-in-progress: false
 
 jobs:
   build:
