@@ -1,77 +1,79 @@
 # viblogy
 
-**中文** | [English](README.en.md)
+[中文](README.zh.md) | **English**
 
-> 榨干每一段 AI 协作会话的“剩余价值”。
+> Squeeze every last bit of value out of your AI collaboration sessions.
 
-viblogy 是一款面向 vibe-coding 用户的 macOS 桌面应用。它集中管理 **Kimi / Qwen Code / Trae / Qoder** 四种导出格式的 AI 协作会话（手动导入或文件夹监测），另有一条实时监测链路支持 **Kimi / Qwen / Qoder / Codex**（Codex 为实验性适配、默认关闭；仅 Trae 无实时监测能力），**把散落的 AI 对话，变成可读的工作进度、可复盘的调试教训、可溯源的代码地图**。
+viblogy is a macOS desktop app for vibe-coding users. It centrally manages AI collaboration sessions exported in four formats — **Kimi / Qwen Code / Trae / Qoder** (manual import or watched folders) — plus a real-time monitoring pipeline for **Kimi / Qwen / Qoder / Codex** (Codex is experimental and off by default; only Trae has no real-time support). **It turns scattered AI conversations into readable progress reports, reviewable debugging lessons, and a traceable code map.**
 
-## 它解决四个问题
+> The app UI is currently Chinese-only; setting labels below are quoted in Chinese so you can find them in the app.
 
-### 一、超多轮会话之后，我到底做完了什么？
+## It solves four problems
 
-vibe-coding 的会话动辄上百轮，翻记录找回进度近乎不可能。viblogy 把“读记录”变成“读结论”：
+### 1. After a hundred-turn session, what did I actually finish?
 
-- **叙事型 AI 摘要**：基于全量轮次理解生成四节叙事——背景与目标 / 过程脉络 / 关键决策与转折 / 最终成果；超长会话自动分层归纳，失败可断点续跑。
-- **Turn 理解**：每一轮对话生成 Markdown 分层散文（目标 / 过程 / 意义 + 成果清单），附带上一轮理解作为链式上下文，思路演变逐轮可追溯。
-- **决策记录**：每轮理解之后自动提炼出**决策卡片**——问题 / 方案 / 约束 / 理由 / 结果，一决策一张卡片。关键决策可标为「重要」常驻，噪音可忽略（随时恢复）；卡片同样能被搜到，追问“这个方案当初为什么这么定”不必再翻原文。历史会话可一键回补，中断后继续不重跑。
-- **DevPlan 开发计划清单**：导入开发计划文档生成结构化任务清单，Turn 理解自动判定任务进度；时间线顶部进度横幅一眼看清“做到哪了”，点任务还能反查关联对话。
-- **搜索与问答**：关键词搜索 + 项目/时间筛选直达原文；Session 级 AI 问答基于完整会话上下文回答“当时为什么这样改”，支持 `@turn` 引用、问答一键转笔记。
+Vibe-coding sessions easily run to hundreds of turns, and scrolling back through logs to recover progress is nearly impossible. viblogy turns "reading logs" into "reading conclusions":
 
-### 二、debug 来回改了几十轮，问题到底出在哪？
+- **Narrative AI summaries**: generates a four-part narrative from full turn-by-turn understanding — Background & Goals / Process / Key Decisions & Turning Points / Final Outcome; ultra-long sessions are summarized in layers, and failed runs resume from checkpoints.
+- **Turn understanding**: every turn gets a structured Markdown write-up (goal / process / significance + outcome checklist), carrying the previous turn's understanding as chained context, so the evolution of your thinking is traceable turn by turn.
+- **Decision records**: after each turn's understanding, **decision cards** are distilled automatically — problem / solution / constraints / rationale / outcome, one card per decision. Mark key ones as important, dismiss noise (restorable anytime); cards are searchable too, so "why did we decide this?" no longer means digging through raw logs. Historical sessions can be backfilled, with resume after interruption.
+- **DevPlan checklists**: import a development plan document to generate a structured task list; turn understanding automatically judges task progress. A progress banner at the top of the timeline shows where things stand, and clicking a task jumps back to the related conversations.
+- **Search & Q&A**: keyword search with project/time filters goes straight to the source text; session-level AI Q&A answers "why was this changed back then" against the full session context, with `@turn` references and one-click conversion of answers into notes.
 
-多轮 debug 无效循环是 vibe-coding 最大的隐性成本。viblogy 帮你跳出循环、复盘全程：
+### 2. After dozens of debugging rounds, where did it actually go wrong?
 
-- **Debug 复盘**：三阶段分析（意图角色分析 → 跨轮聚类 → 深度复盘），输出根因 / 排查过程 / 策略评估 / 教训沉淀，支持关键路径跳转与导出；复盘结论可锚定到具体文件——AI 判定根因文件、可跳代码树，附涉及文件快照。可选择只分析真正排查过报错的轮次，更快更省。
-- **交接文档里的「已知局限与待验证断言」**：生成交接文档时会自动收拢这段会话里**言明接受的取舍**与**没有验证证据佐证的代码行为断言**，并逐条标注来源轮次——接手的人不会把“没写出来的风险”当成“没有风险”。未配置 AI 服务时降级为原始信号罗列，功能不中断。
-- **Session 级 AI 问答**：直接追问“这个 bug 第一次出现是在哪一轮”“修过几次同类问题”，基于完整上下文作答，不漏早期线索。
+Futile multi-round debugging loops are vibe-coding's biggest hidden cost. viblogy helps you break the loop and review the whole journey:
 
-### 三、AI 写出来的代码是个黑箱，我怎么对它负责？
+- **Debug retrospectives**: three-stage analysis (intent & role analysis → cross-turn clustering → deep retrospective) producing root cause / troubleshooting process / strategy assessment / lessons learned, with key-path jumps and export. Conclusions anchor to concrete files — AI identifies the root-cause file, jumpable in the code tree, with snapshots of affected files. You can restrict analysis to turns that actually worked on the error — faster and cheaper.
+- **"Known limitations & unverified claims" in handoff documents**: when generating a handoff document, viblogy collects the trade-offs **explicitly accepted** and the **code-behavior claims stated without verification evidence** in the session, each annotated with its source turn — whoever takes over won't mistake "unwritten risks" for "no risks". Without an AI service configured it degrades to a raw signal list; the feature never breaks.
+- **Session-level AI Q&A**: ask directly "in which turn did this bug first appear" or "how many times has this class of issue been fixed" — answers draw on the full context without missing early clues.
 
-看不懂自己“拥有”的代码，就无法为它的安全与质量负责。viblogy 用本地分析 + AI 注解把黑箱变透明：
+### 3. AI-written code is a black box — how do I take responsibility for it?
 
-- **项目代码树**：确认项目根目录后自动扫描真实文件系统（尊重 `.gitignore`），递归懒加载，删除文件保留历史标记；文档 / 测试 / 锁文件 / 静态资源四类可配置不进树。
-- **AI 节点注解**：任意文件/目录一键生成 1~3 句中文注解，说清“这个文件存什么数据、造什么功能”；支持多选圈定范围批量标注，先预估再执行、中断可续跑，token 成本可控。
-- **影响关联与溯源**：对话中出现的文件路径自动关联到代码树节点；树节点显示影响徽章，溯源面板列出“哪次对话改了哪个文件”并附证据片段，一键跳回时间线对应轮次。
-- **未提交改动概览**：只读展示 git 未提交改动，按 worktree/会话分组，可触发 AI 梳理；分支状态与最近提交一目了然。
-- **数据流 flowchart 与解读**：覆盖树区的三层上下游关系图，边上 AI 标注数据语义，点击节点换焦点逐层深入；任选两个节点，AI 讲清它们之间数据怎么流动、这条路诞生于哪次对话。
-- **图景导出与路径复制**：把当前图上可见的范围一键导出成 Markdown（节点注解 / 中观描述 / 路径解释三段可勾选）。缺失或过期的内容会一次性列全，让你选“补齐并继续”还是“按现状导出”，不逐项打断；过期内容是否重新生成由你逐条勾选，成本知情。节点卡上还能一键复制该文件的绝对路径。
+You can't vouch for the safety or quality of code you can't read. viblogy makes the black box transparent with local analysis plus AI annotations:
 
-### 四、下一个想法要开工，怎么把上下文一次性交给 AI？
+- **Project code tree**: after you confirm the project root, it scans the real filesystem (respecting `.gitignore`), with recursive lazy loading and historical markers for deleted files; four categories (docs / tests / lockfiles / static assets) can be excluded from the tree.
+- **AI node annotations**: one click generates a 1–3 sentence plain-language annotation for any file or directory — what this file stores and what it builds; multi-select a scope for batch annotation, with upfront estimates and resumable runs, keeping token costs under control.
+- **Impact linking & tracing**: file paths mentioned in conversations are automatically linked to code-tree nodes; tree nodes show impact badges, and the tracing panel lists "which conversation changed which file" with evidence excerpts and one-click jumps back to the exact timeline turn.
+- **Uncommitted changes overview**: a read-only view of uncommitted git changes, grouped by worktree/session, with optional AI summarization; branch status and recent commits at a glance.
+- **Data-flow flowcharts & interpretation**: a three-layer upstream/downstream graph over the tree area with AI-annotated data semantics on edges; click a node to refocus and drill down layer by layer. Pick any two nodes and AI explains how data flows between them — and which conversation created that path.
+- **Graph export & path copying**: export the currently visible graph to Markdown in one click (three optional sections: node annotations / meso descriptions / path explanations). Missing or stale content is listed all at once — choose "fill in and continue" or "export as-is" without item-by-item interruptions; whether to regenerate stale content is your per-item choice, with costs made explicit. Node cards also copy the file's absolute path in one click.
 
-新会话从零开始，AI 只能靠满仓库搜索自己摸索上下文——既慢又容易漏。viblogy 让你把已经攒下的项目知识直接打包带走：
+### 4. A new idea is ready to start — how do I hand the context to AI in one shot?
 
-- **项目里程碑清单**：导入开发计划文档，AI 梳理成跨会话可见的清单；多次导入自动合并去重，条目可手动增改、拖拽排序、分组管理（AI 重整理支持只处理未分组条目，并可设分组数上限）。每个条目就是一个待开工的想法。
-- **上下文包裹**：点条目上的包裹按钮，viblogy 装配出一份 Markdown 上下文——需求与你确认过的关键词 / 相关代码事实 / 相似历史会话 / 相关文件 / 项目规范位置 / 坑位预警，每段都能展开看“为什么命中”的依据。**装配这一步不调用 AI 服务**：没配置 AI 也能装配、预览、复制，秒级完成。
-- **覆盖率如实披露**：包裹会写明哪些段命中了、哪些是空的——没有内容就照实写“无命中”，不为了好看编造假命中。覆盖率百分比告诉你这个想法现在开工的准备程度。代码库重新扫描后包裹会自动标记为过期，点一下重新装配，文档头始终写明装配时刻，不会静默给你旧信息。
-- **整组一起打包**：分组头部的包裹按钮可以把**整组条目**合成一份包裹。被多条想法同时命中的文件会单独归入「组内共用」块并标明来自哪几条——多处指向同一个文件说明它是公共依赖，动它之前先知道。装配前还能临时剔除某几条（即刻重算，只影响这一份包裹、不改变分组本身），随时恢复全量；覆盖率除了整组数字，还会说明组内每条各自的覆盖情况，不让并集数字掩盖准备不足的条目。
-- **坑位预警**：包裹会收拢这个项目里真踩过的坑——失败过的操作、基于过期内容做出的改动、以及历史会话中言明的取舍与未验证断言，让下一个接手的人不必重新踩一遍。
-- **投递与留痕**：复制或导出 `.md` 即算一次投递，条目状态随之更新（可开关）；你在预览里删掉的段会被记住，文档头也会如实写明本次删了哪几段——接手方不会把“没有坑位预警”误读成“这个项目没有坑”。
-- **导出与交接中心**：会话本身也能一键导出——「交接文档」预设面向发给下一个接手的 AI（十段结构化交接内容 + 会话摘要），「会话存档」预设面向自己留档（原文 + 理解 + 摘要 + 影响关联，秒级完成）。轮次范围与内容组合两根轴独立可调，右栏分段折叠实时预览；密钥类敏感内容自动过滤，过滤口径在文档头如实声明。
+A fresh session starts from zero: the AI has to search the whole repo to bootstrap itself — slow and prone to misses. viblogy lets you pack up the project knowledge you've already accumulated and take it with you:
 
-## 系统要求
+- **Project milestones**: import a development plan document and AI organizes it into a cross-session checklist; repeated imports merge and deduplicate, entries can be edited manually, drag-sorted, and grouped (AI re-organization can process only ungrouped entries, with a group-count cap). Every entry is an idea waiting to start.
+- **Context packages**: click the package button on an entry and viblogy assembles a Markdown context — requirements with keywords you've confirmed / relevant code facts / similar past sessions / related files / where project conventions live / pitfall warnings — every section expandable to see the evidence behind "why this matched". **Assembly makes no AI calls**: with no AI service configured you can still assemble, preview, and copy, all in seconds.
+- **Honest coverage reporting**: the package states which sections matched and which are empty — empty sections say "no hits" instead of inventing fake matches. The coverage percentage tells you how ready this idea is to start. After a codebase rescan, packages are marked stale automatically; one click re-assembles, and the document header always states the as-of time — never silently serving stale facts.
+- **Package a whole group at once**: the package button on a group header combines **every entry in the group** into one package. Files hit by multiple entries go into a "shared within group" block labeled with their source entries — several pointers to the same file means a shared dependency you should know about before touching it. You can temporarily exclude entries before assembly (recomputed instantly, affecting only this package, not the grouping itself), with one-click restore; coverage reports each entry's status alongside the group total, so aggregate numbers never mask underprepared entries.
+- **Pitfall warnings**: the package collects pitfalls this project has actually hit — failed operations, changes made from stale content, and trade-offs or unverified claims recorded in past sessions — so the next person doesn't step on them again.
+- **Delivery with a paper trail**: copying or exporting `.md` counts as a delivery and updates entry status (toggleable); sections you delete in the preview are remembered, and the document header honestly states which sections were removed — recipients won't misread "no pitfall warnings" as "this project has no pitfalls".
+- **Export & handoff center**: sessions themselves export in one click — the "Handoff document" preset targets the next AI taking over (ten structured handoff sections plus a session summary), while "Session archive" targets your own records (original text + understanding + summaries + impact links, in seconds). Turn range and content mix are two independent axes, with a collapsible live preview on the right; key-like sensitive content is filtered automatically, and the filtering policy is declared in the document header.
 
-- macOS 12 或更高版本
-- 当前提供 **Apple Silicon（M 系列芯片）** 版本
-- 建议 8 GB 以上内存（16 GB 更佳，AI 功能与大会话渲染更流畅）
+## System requirements
 
-## 下载与安装
+- macOS 12 or later
+- Currently available for **Apple Silicon (M-series chips)**
+- 8 GB RAM or more recommended (16 GB is better for AI features and large sessions)
 
-1. 访问 [Releases](https://github.com/viblogy/viblogy/releases) 页面，下载最新版本的 `.dmg` 文件；
-2. 打开 `.dmg`，将 **Viblogy** 拖拽到 **Applications** 文件夹；
-3. 应用已 Developer ID 签名并通过 Apple 公证，正常可直接打开；如仍遇 Gatekeeper 提示，前往「系统设置 → 隐私与安全性」选择「仍要打开」；
-4. 首次安装即享 **30 天全功能免费试用**，无需注册账户（试用与授权条款详见 [EULA](EULA.md)）。
+## Download & installation
 
-## 快速上手
+1. Visit the [Releases](https://github.com/viblogy/viblogy/releases) page and download the latest `.dmg` file;
+2. Open the `.dmg` and drag **Viblogy** into the Applications folder;
+3. The app is Developer ID signed and Apple notarized, so it normally opens directly; if Gatekeeper still prompts, go to System Settings → Privacy & Security and choose "Open Anyway";
+4. First install comes with a **30-day full-featured free trial**, no account registration required (trial and licensing terms in the [EULA](EULA.md)).
 
-1. **导入第一个会话**：从 Kimi / Qwen Code / Trae / Qoder 任一工具导出会话为 `.md`，拖拽到时间线区域即可导入（格式自动识别，无需手动选择）。也可以直接在「设置 → 导入与监测」开启实时会话监测——Kimi / Qwen / Qoder / Codex 四个开关相互独立（Codex 为实验性、默认关，开启后只收录你和助手看得见的文本），开启后新对话自动同步入库，无需手动导出。
-2. **关联项目、看代码树**：在左侧栏创建项目，进入项目视图并确认代码根目录，即可浏览代码树、AI 注解与影响溯源。常用项目可置顶，置顶后成为启动时默认选中的项目。
-3. **配置 AI 服务**：进入「设置 → AI 服务」，新增配置并测试连接（可从多家服务商预设快速填充，也支持自定义端点与请求头）；摘要、理解、问答等 AI 功能均走你自己配置的服务端点，token 成本由你控制。上下文包裹的装配不需要 AI 服务。
-4. **给下一个想法打包上下文**：在项目视图「里程碑」tab 录入待办想法（录入时会有候选词提示，点选即可，不会改写你已输入的文字），点条目上的包裹按钮装配上下文，复制或导出 `.md` 后直接当作新会话的首条 prompt 附件。
-5. **定期备份**：进入「设置 → 数据备份」，一键导出 zip 备份（含数据库、会话内容与笔记）。
+## Quick start
 
-## 许可证
+1. **Import your first session**: export a session as `.md` from Kimi / Qwen Code / Trae / Qoder and drag it onto the timeline (format auto-detected, no manual selection). Or enable real-time session monitoring in 「设置 → 导入与监测」 — four independent toggles for Kimi / Qwen / Qoder / Codex (Codex is experimental and off by default; only text visible to you and the assistant is captured). New conversations then sync automatically, no manual export needed.
+2. **Link a project and browse the code tree**: create a project in the sidebar, enter the project view, and confirm the code root to browse the code tree, AI annotations, and impact tracing. Frequently used projects can be pinned — a pinned project is selected by default at launch.
+3. **Configure an AI service**: go to 「设置 → AI 服务」, add a configuration, and test the connection (quick-fill from multiple provider presets, or custom endpoints and headers); summaries, understanding, Q&A, and other AI features all go through your own configured endpoints — token costs are yours to control. Context-package assembly does not require an AI service.
+4. **Package context for the next idea**: in the project view's 「里程碑」 tab, jot down ideas (candidate-word suggestions appear as you type — clicking one never rewrites what you've entered), click the package button on an entry to assemble its context, then copy or export `.md` as a first-prompt attachment for a new session.
+5. **Back up regularly**: go to 「设置 → 数据备份」 and export a zip backup (database, session contents, and notes) in one click.
 
-viblogy 为闭源专有软件，未经许可不得复制、分发或修改。权利声明、试用与授权条款详见[《最终用户许可协议（EULA）》](EULA.md)，数据处理方式详见[《隐私政策》](PRIVACY-POLICY.md)。当前版本为测试版本，相关特别条款见 EULA 第四条。
+## License
+
+viblogy is closed-source proprietary software; copying, distribution, or modification without permission is prohibited. See the [End User License Agreement (EULA)](EULA.md) for rights, trial, and licensing terms, and the [Privacy Policy](PRIVACY-POLICY.md) for data handling. Both legal documents are currently available in Chinese only. The current version is a beta release; see EULA Section 4 for the special terms that apply.
 
 © 2026 viblogy. All rights reserved.
