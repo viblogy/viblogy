@@ -6,6 +6,8 @@
 
 viblogy is a macOS desktop app for vibe-coding users. It centrally manages AI collaboration sessions exported in four formats — **Kimi / Qwen Code / Trae / Qoder** (manual import or watched folders) — plus a real-time monitoring pipeline for **Kimi / Qwen / Qoder / Codex** (Codex is experimental and off by default; only Trae has no real-time support). **It turns scattered AI conversations into readable progress reports, reviewable debugging lessons, and a traceable code map.**
 
+<img width="2032" height="1196" alt="截屏2026-10-01 09 57 50" src="https://github.com/user-attachments/assets/319dd8a1-d540-4582-8b9d-730946a32dc9" />
+
 > The app UI is currently Chinese-only; setting labels below are quoted in Chinese so you can find them in the app.
 
 ## It solves four problems
@@ -19,7 +21,7 @@ Vibe-coding sessions easily run to hundreds of turns, and scrolling back through
 - **Decision records**: after each turn's understanding, **decision cards** are distilled automatically — problem / solution / constraints / rationale / outcome, one card per decision. Mark key ones as important, dismiss noise (restorable anytime); cards are searchable too, so "why did we decide this?" no longer means digging through raw logs. Historical sessions can be backfilled, with resume after interruption.
 - **DevPlan checklists**: import a development plan document to generate a structured task list; turn understanding automatically judges task progress. A progress banner at the top of the timeline shows where things stand, and clicking a task jumps back to the related conversations.
 - **Search & Q&A**: keyword search with project/time filters goes straight to the source text; session-level AI Q&A answers "why was this changed back then" against the full session context, with `@turn` references and one-click conversion of answers into notes.
-
+<img width="2032" height="1196" alt="截屏2026-10-01 09 59 50" src="https://github.com/user-attachments/assets/5233eb71-6ab8-4fc4-aa3d-de3e4fceeb03" />
 ### 2. After dozens of debugging rounds, where did it actually go wrong?
 
 Futile multi-round debugging loops are vibe-coding's biggest hidden cost. viblogy helps you break the loop and review the whole journey:
@@ -27,6 +29,7 @@ Futile multi-round debugging loops are vibe-coding's biggest hidden cost. viblog
 - **Debug retrospectives**: three-stage analysis (intent & role analysis → cross-turn clustering → deep retrospective) producing root cause / troubleshooting process / strategy assessment / lessons learned, with key-path jumps and export. Conclusions anchor to concrete files — AI identifies the root-cause file, jumpable in the code tree, with snapshots of affected files. You can restrict analysis to turns that actually worked on the error — faster and cheaper.
 - **"Known limitations & unverified claims" in handoff documents**: when generating a handoff document, viblogy collects the trade-offs **explicitly accepted** and the **code-behavior claims stated without verification evidence** in the session, each annotated with its source turn — whoever takes over won't mistake "unwritten risks" for "no risks". Without an AI service configured it degrades to a raw signal list; the feature never breaks.
 - **Session-level AI Q&A**: ask directly "in which turn did this bug first appear" or "how many times has this class of issue been fixed" — answers draw on the full context without missing early clues.
+<img width="1920" height="1084" alt="viblogy-viewport-20261001-100239" src="https://github.com/user-attachments/assets/81e210af-cff1-4dbb-a719-d5779b7f5021" />
 
 ### 3. AI-written code is a black box — how do I take responsibility for it?
 
@@ -38,6 +41,8 @@ You can't vouch for the safety or quality of code you can't read. viblogy makes 
 - **Uncommitted changes overview**: a read-only view of uncommitted git changes, grouped by worktree/session, with optional AI summarization; branch status and recent commits at a glance.
 - **Data-flow flowcharts & interpretation**: a three-layer upstream/downstream graph over the tree area with AI-annotated data semantics on edges; click a node to refocus and drill down layer by layer. Pick any two nodes and AI explains how data flows between them — and which conversation created that path.
 - **Graph export & path copying**: export the currently visible graph to Markdown in one click (three optional sections: node annotations / meso descriptions / path explanations). Missing or stale content is listed all at once — choose "fill in and continue" or "export as-is" without item-by-item interruptions; whether to regenerate stale content is your per-item choice, with costs made explicit. Node cards also copy the file's absolute path in one click.
+<img width="1920" height="1084" alt="viblogy-viewport-20261001-100430" src="https://github.com/user-attachments/assets/de1c2e2c-8b7a-497a-a7bc-d89a1ba9ce19" />
+<img width="985" height="983" alt="viblogy-component-20261001-100552" src="https://github.com/user-attachments/assets/d5c3d545-acac-4391-ac27-f75ad503488e" />
 
 ### 4. A new idea is ready to start — how do I hand the context to AI in one shot?
 
